@@ -11,7 +11,7 @@ namespace Topolgical_Algorithm
         public int Id { get; set; }
         public string Description { get; set; }
         public int Incoming { get; set; }
-        List<Vertex> adj = new List<Vertex>();
+        public List<Vertex> adj = new List<Vertex>();
 
         public Vertex(int id)
         {

@@ -18,7 +18,8 @@ namespace Topolgical_Algorithm
  
             for(int i = 0; i < size; i++)
             {
-                vertices.Add(new Vertex(i));
+                vertices.Add(new Vertex(size));
+                vertices[i].Description = Console.ReadLine(); 
             }
 
             string line = Console.ReadLine();
@@ -28,12 +29,40 @@ namespace Topolgical_Algorithm
                 int token1 = int.Parse(array[0]);
                 int token2 = int.Parse(array[1]);
                 vertices[token1].AddNeighbour(vertices[token2]);
+                vertices[token2].Incoming++;
+
                 line = Console.ReadLine();
             }
 
+            List<Vertex> startList = new List<Vertex>();
+            List<Vertex> sortedList = new List<Vertex>();
+
             foreach(Vertex v in vertices)
             {
-                Console.WriteLine(v.Description);
+                if(v.Incoming == 0)
+                {
+                    startList.Add(v);
+                }
+            }
+
+            while(startList.Count > 0)
+            {
+                Vertex temp = startList[0];
+                startList.RemoveAt(0);
+                sortedList.Add(temp);
+
+                foreach(var aj in temp.adj)
+                {
+                    aj.Incoming--;
+                    if(aj.Incoming == 0)
+                    {
+                        startList.Add(aj);
+                    }
+                }
+            }
+            foreach(var s1 in sortedList)
+            {
+                Console.WriteLine(s1.Description);
             }
             Console.ReadLine();
         }
